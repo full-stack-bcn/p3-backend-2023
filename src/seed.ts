@@ -50,3 +50,5 @@ const tournament = await prisma.tournament.create({
     endDate: futureDate
   }
 })
+
+console.log(`created tournament: ${tournament.id} of the promotion ${animalKingdom.name}`);
