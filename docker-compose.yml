@@ -1,0 +1,19 @@
+version: '3'
+
+services:
+  tournamentsdb:
+    image: postgres
+    container_name: tournamentsdb
+    restart: always
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=tournamentsdb
+    ports: 
+    - "5432:5432"
+    volumes:
+      - dbdata:/var/lib/postgressql/data
+    
+
+volumes:
+  dbdata:
