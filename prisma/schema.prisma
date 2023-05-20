@@ -12,23 +12,23 @@ model Partner {
   name       String      @unique
   url        String      @unique
   promotions Promotion[]
-  positions   Position[]
+  positions  Position[]
 }
 
 model Promotion {
   id          Int          @id @default(autoincrement())
   name        String       @unique
   url         String       @unique
-  partnerId   Int
+  partnerId   Int         
   partner     Partner      @relation(fields: [partnerId], references: [id])
   tournaments Tournament[]
 }
 
 model Tournament {
   id          Int       @id @default(autoincrement())
-  promotionId Int
-  startDate   DateTime
-  endDate     DateTime
+  promotionId Int 
+  startDate   DateTime  
+  endDate     DateTime  
   promotion   Promotion @relation(fields: [promotionId], references: [id])
   rankings    Ranking[]
 }
@@ -39,7 +39,7 @@ model Ranking {
   startDate    DateTime
   endDate      DateTime
   tournament   Tournament @relation(fields: [tournamentId], references: [id])
-  Position     Position[]
+  positions    Position[]
 }
 
 model Position {

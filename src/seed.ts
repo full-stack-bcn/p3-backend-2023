@@ -39,3 +39,14 @@ const animalKingdom = await prisma.promotion.create({
 });
 
 console.log(`created promotion: ${animalKingdom.name}`);
+
+const futureDate = new Date();
+futureDate.setMonth(futureDate.getMonth() + 1);
+
+const tournament = await prisma.tournament.create({
+  data:{
+    promotionId: animalKingdom.id,
+    startDate: new Date(),
+    endDate: futureDate
+  }
+})
