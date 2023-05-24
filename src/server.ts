@@ -4,6 +4,7 @@ import cors from "cors";
 import morgan from "morgan";
 import dotenv from "dotenv";
 import partnerRouter from "./partner.js";
+import promotionRouter from "./promotion.js"
 import { defaultErrorHandler } from "./utils.js";
 
 //for use the file .env
@@ -16,3 +17,4 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 app.use("/partner", partnerRouter);
+app.use("/promotion", promotionRouter);

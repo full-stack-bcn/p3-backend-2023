@@ -7,7 +7,7 @@ const router = Router();
 router.get(
   "/",
   errorChecked(async (req, res) => {
-    const result = await prisma.partner.findMany({});
+    const result = await prisma.promotion.findMany({});
     res.status(200).json({ partners: result, ok: true });
   })
 );
@@ -15,26 +15,26 @@ router.get(
 router.post(
   "/",
   errorChecked(async (req, res) => {
-    const newPartner = await prisma.partner.create({ data: req.body });
+    const newPartner = await prisma.promotion.create({ data: req.body });
     res.status(200).json({ newPartner, ok: true });
   })
 );
 
-export interface RequestWithPartnerId extends Request {
-    partnerId: number;
+export interface RequestWithPromotionId extends Request {
+    promotionId: number;
 }
 
-router.use("/:id", async (req: RequestWithPartnerId, res, next) => {
+router.use("/:id", async (req: RequestWithPromotionId, res, next) => {
   const { id } = req.params;
-  req.partnerId = Number(id);
+  req.promotionId = Number(id);
   next();
 });
 
 router.get(
   "/:id",
-  errorChecked(async (req: RequestWithPartnerId, res) => {
+  errorChecked(async (req: RequestWithPromotionId, res) => {
     const partner = await prisma.partner.findUniqueOrThrow({
-      where: { id: req.partnerId },
+      where: { id: req.promotionId },
     });
     res.status(200).json(partner);
   })
@@ -42,9 +42,9 @@ router.get(
 
 router.put(
   "/:id",
-  errorChecked(async (req: RequestWithPartnerId, res) => {
+  errorChecked(async (req: RequestWithPromotionId, res) => {
     const updatedPartner = await prisma.partner.update({
-      where: { id: req.partnerId },
+      where: { id: req.promotionId },
       data: req.body,
     });
     res.status(200).json(updatedPartner);
@@ -53,11 +53,11 @@ router.put(
 
 router.delete(
   "/:id",
-  errorChecked(async (req: RequestWithPartnerId, res) => {
-    const deletedPartner = await prisma.partner.delete({
-      where: { id: req.partnerId },
+  errorChecked(async (req: RequestWithPromotionId, res) => {
+    const deletePartner = await prisma.partner.delete({
+      where: { id: req.promotionId },
     });
-    res.status(200).json(deletedPartner);
+    res.status(200).json(deletePartner);
   })
 );
 
