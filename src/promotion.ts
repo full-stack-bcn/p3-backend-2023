@@ -8,15 +8,15 @@ router.get(
   "/",
   errorChecked(async (req, res) => {
     const result = await prisma.promotion.findMany({});
-    res.status(200).json({ partners: result, ok: true });
+    res.status(200).json({ promotions: result, ok: true });
   })
 );
 
 router.post(
   "/",
   errorChecked(async (req, res) => {
-    const newPartner = await prisma.promotion.create({ data: req.body });
-    res.status(200).json({ newPartner, ok: true });
+    const newPromotion = await prisma.promotion.create({ data: req.body });
+    res.status(200).json({ newPromotion, ok: true });
   })
 );
 
@@ -33,31 +33,31 @@ router.use("/:id", async (req: RequestWithPromotionId, res, next) => {
 router.get(
   "/:id",
   errorChecked(async (req: RequestWithPromotionId, res) => {
-    const partner = await prisma.partner.findUniqueOrThrow({
+    const promotion = await prisma.promotion.findUniqueOrThrow({
       where: { id: req.promotionId },
     });
-    res.status(200).json(partner);
+    res.status(200).json(promotion);
   })
 );
 
 router.put(
   "/:id",
   errorChecked(async (req: RequestWithPromotionId, res) => {
-    const updatedPartner = await prisma.partner.update({
+    const updatedPromotion = await prisma.promotion.update({
       where: { id: req.promotionId },
       data: req.body,
     });
-    res.status(200).json(updatedPartner);
+    res.status(200).json(updatedPromotion);
   })
 );
 
 router.delete(
   "/:id",
   errorChecked(async (req: RequestWithPromotionId, res) => {
-    const deletePartner = await prisma.partner.delete({
+    const deletePromotion = await prisma.promotion.delete({
       where: { id: req.promotionId },
     });
-    res.status(200).json(deletePartner);
+    res.status(200).json(deletePromotion);
   })
 );
 
