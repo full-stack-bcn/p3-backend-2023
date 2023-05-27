@@ -1,7 +1,7 @@
 {
   "name": "p3-backend-2023",
   "version": "1.0.0",
-  "description": "Se trata de hacer un _backend_ usando Typescript, Express y Prisma. El _backend_ implementado en clase es el modelo a seguir. Para alumnos que lo hacen por primera vez y sienten algo de incomodidad, lo ideal es usar el modelo de guía y hacer un _backend_ cercano al original de tal manera que la práctica sea un repaso a fondo. Para los que estén más cómodos, lo ideal es innovar en algun aspecto y salirse parcialmente del modelo en ciertos momentos o explorar algún interés personal.",
+  "description": "The following solution addresses a backend system that solves the following problem: An online casino and bingo company needs to have quick and easy access to data related to various tournaments organized for its promotions. The tournaments are associated with specific promotions, and each tournament can span multiple weeks. The positions are updated every week, and the rankings are published on Fridays. These rankings are displayed on the promotions pages.",
   "main": "src/server.ts",
   "type": "module",
   "scripts": {
