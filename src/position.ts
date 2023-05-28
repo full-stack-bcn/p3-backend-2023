@@ -12,6 +12,28 @@ router.get(
   })
 );
 
+router.get(
+  "/top-winners",
+  errorChecked(async (req, res) => {
+    const usersWithGamesWon = await prisma.position.groupBy({
+      by: ['userName'],
+      _sum: {
+        gamesWon: true,
+        prize: true
+      },
+      orderBy: [
+        {
+          _sum: {
+            gamesWon: 'desc'
+          }
+        }
+      ],
+      take: 20
+    });
+    res.status(200).json({ topWinners: usersWithGamesWon, ok: true });
+  })
+);
+
 router.post(
   "/",
   errorChecked(async (req, res) => {

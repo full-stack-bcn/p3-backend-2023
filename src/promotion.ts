@@ -21,7 +21,7 @@ router.post(
 );
 
 export interface RequestWithPromotionId extends Request {
-    promotionId: number;
+  promotionId: number;
 }
 
 router.use("/:id", async (req: RequestWithPromotionId, res, next) => {
@@ -37,6 +37,42 @@ router.get(
       where: { id: req.promotionId },
     });
     res.status(200).json(promotion);
+  })
+);
+
+router.get(
+  "/:id/listofwinners",
+  errorChecked(async (req: RequestWithPromotionId, res) => {
+    const currentDate = new Date();
+
+    const positions = await prisma.position.findMany({
+      where: {
+        ranking: {
+          AND: [
+            {
+              tournament: {
+                promotionId: req.promotionId,
+              },
+            },
+            {
+              startDate: {
+                lte: currentDate,
+              },
+            },
+            {
+              endDate: {
+                gte: currentDate,
+              },
+            },
+          ],
+        },
+      },
+      take: 20, 
+      orderBy: {
+        position: "asc", 
+      },
+    });
+    res.status(200).json({ listOfWinners: positions, ok: true });
   })
 );
 
