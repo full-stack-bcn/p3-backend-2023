@@ -1,14 +1,12 @@
 import express from "express";
-import { ErrorRequestHandler } from "express";
 import cors from "cors";
 import morgan from "morgan";
 import dotenv from "dotenv";
-import partnerRouter from "./partner.js";
-import promotionRouter from "./promotion.js"
-import tournamentRouter from "./tournament.js"
-import rankingtRouter from "./ranking.js"
-import positionRouter from "./position.js"
-import { defaultErrorHandler } from "./utils.js";
+import partnerRouter from "./routers/partner.js";
+import promotionRouter from "./routers/promotion.js"
+import tournamentRouter from "./routers/tournament.js"
+import rankingtRouter from "./routers/ranking.js"
+import positionRouter from "./routers/position.js"
 
 //to use the file .env
 dotenv.config();
@@ -24,7 +22,6 @@ app.use("/promotion", promotionRouter);
 app.use("/tournament", tournamentRouter);
 app.use("/ranking", rankingtRouter);
 app.use("/position", positionRouter);
-
 
 app.listen(process.env.SERVER_PORT,()=>{
     console.log(`Tournament API listening on: ${process.env.SERVER_PORT}`);

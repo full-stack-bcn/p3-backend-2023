@@ -1,4 +1,4 @@
-import prisma from "./prisma-client.js";
+import prisma from "./db/prisma-client.js";
 
 const cyberbingo = await prisma.partner.create({
   data: {
