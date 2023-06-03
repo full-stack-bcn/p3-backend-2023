@@ -1,6 +1,7 @@
 import { Request, Router } from "express";
 import prisma from "../db/prisma-client.js";
 import { errorChecked } from "../utils.js";
+import {validateTournaments} from "../validators/date.js"
 
 const router = Router();
 
@@ -15,8 +16,13 @@ router.get(
 router.post(
   "/",
   errorChecked(async (req, res) => {
-    const newTournament = await prisma.tournament.create({ data: req.body });
-    res.status(200).json({ newTournament, ok: true });
+    const areDatesOK = validateTournaments(req);
+    if(areDatesOK.ok){
+      const newTournament = await prisma.tournament.create({ data: req.body });
+      res.status(200).json({ newTournament, ok: true });
+    }else{
+      res.status(400).json({ error:areDatesOK.error });
+    }
   })
 );
 

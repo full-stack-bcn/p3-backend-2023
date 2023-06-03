@@ -1,6 +1,7 @@
 import { Request, Router } from "express";
 import prisma from "../db/prisma-client.js";
 import { errorChecked } from "../utils.js";
+import {validateRankings} from "../validators/date.js"
 
 const router = Router();
 
@@ -15,8 +16,13 @@ router.get(
 router.post(
   "/",
   errorChecked(async (req, res) => {
-    const newRanking = await prisma.ranking.create({ data: req.body });
-    res.status(200).json({ newRanking, ok: true });
+    const isDataOk = await validateRankings(req);
+    if(isDataOk.ok){
+      const newRanking = await prisma.ranking.create({ data: req.body });
+      res.status(200).json({ newRanking, ok: true });
+    }else{
+      res.status(400).json({ error:isDataOk.error });
+    }
   })
 );
 
