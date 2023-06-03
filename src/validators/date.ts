@@ -1,4 +1,3 @@
-import { Tournament } from "@prisma/client";
 import {formaterDates} from "../utils.js"
 import prisma from "../db/prisma-client.js";
 
@@ -32,8 +31,6 @@ export const validateRankings = async (req: any): Promise<{ ok: boolean, error?:
     const tournament = await getTournament(req.body.tournamentId);
 
     const areInBeteewn = validateDatesRankingInTournament(req, tournament);
-
-    console.log(areInBeteewn);
 
     if(!areInBeteewn.ok){
         return areInBeteewn;
