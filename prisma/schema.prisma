@@ -1,0 +1,56 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Partner {
+  id         Int         @id @default(autoincrement())
+  name       String      @unique
+  url        String      @unique
+  promotions Promotion[]
+  positions  Position[]
+}
+
+model Promotion {
+  id          Int          @id @default(autoincrement())
+  name        String       @unique
+  url         String       @unique
+  partnerId   Int         
+  partner     Partner      @relation(fields: [partnerId], references: [id])
+  tournaments Tournament[]
+}
+
+model Tournament {
+  id          Int       @id @default(autoincrement())
+  promotionId Int 
+  startDate   DateTime  
+  endDate     DateTime  
+  promotion   Promotion @relation(fields: [promotionId], references: [id])
+  rankings    Ranking[]
+}
+
+model Ranking {
+  id           Int        @id @default(autoincrement())
+  tournamentId Int
+  startDate    DateTime
+  endDate      DateTime
+  tournament   Tournament @relation(fields: [tournamentId], references: [id])
+  positions    Position[]
+}
+
+model Position {
+  id        Int    @id @default(autoincrement())
+  rankingId Int
+  position  Int
+  userName  String
+  gamesWon  Int
+  prize     Int
+  partnerId Int
+
+  partner Partner @relation(fields: [partnerId], references: [id])
+  ranking Ranking @relation(fields: [rankingId], references: [id])
+}

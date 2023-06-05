@@ -1,0 +1,32 @@
+{
+  "name": "p3-backend-2023",
+  "version": "1.0.0",
+  "description": "The following solution addresses a backend system that solves the following problem: An online casino and bingo company needs to have quick and easy access to data related to various tournaments organized for its promotions. The tournaments are associated with specific promotions, and each tournament can span multiple weeks. The positions are updated every week, and the rankings are published on Fridays. These rankings are displayed on the promotions pages.",
+  "main": "src/server.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "nodemon src/server.ts"
+  },
+  "keywords": [],
+  "author": "Angel Diaz",
+  "license": "ISC",
+  "dependencies": {
+    "@prisma/client": "^4.14.1",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.17",
+    "@types/node": "^20.2.1",
+    "nodemon": "^2.0.22",
+    "prisma": "^4.14.1",
+    "redis": "npm:@types/redis@^4.0.11",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.4"
+  },
+  "prisma": {
+    "seed": "ts-node-esm src/seed.ts"
+  }
+}
